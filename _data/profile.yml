@@ -3,8 +3,8 @@ secondary_name: "(曾子懿)"
 navbar_name: "ZENG Ziyi"
 
 positions:
-- name: "MSc Student in Artificial Intelligence and Robotics"
-- name: "Chinese University of Hong Kong, Shenzhen (CUHK-SZ)"
+- name: "MSc Student in Artificial Intelligence and Robotics (M.A.I.R)"
+- name: "The Chinese University of Hong Kong, Shenzhen (CUHK-SZ)"
   logo: assets/images/badges/CUHK_SZ.jpg  # Logo is optional
 
 
