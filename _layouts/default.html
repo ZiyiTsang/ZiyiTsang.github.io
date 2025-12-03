@@ -5,6 +5,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{{ page.title }} - {{ site.data.profile.navbar_name }}</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="author" content="{{ site.data.profile.primary_name }}">
+    <meta name="description" content="{{ site.data.profile.primary_name }} - {{ site.data.profile.positions[0].name }} at {{ site.data.profile.positions[1].name }}. Research focus on Medical Multimodal Large Language Models (MLLMs), forensic medicine and biosignal analysis.">
+    <meta name="keywords" content="{{ site.data.profile.primary_name }}, ZENG Ziyi, Ziyi Zeng, Artificial Intelligence, Robotics, Medical MLLM, Forensic Medicine, Biosignal Analysis, CUHK-SZ, Westlake University">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="{{ page.title }} - {{ site.data.profile.navbar_name }}">
+    <meta property="og:description" content="{{ site.data.profile.primary_name }} - {{ site.data.profile.positions[0].name }} at {{ site.data.profile.positions[1].name }}">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ site.url }}/{{ site.data.profile.portrait_url }}">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page.title }} - {{ site.data.profile.navbar_name }}">
+    <meta name="twitter:description" content="{{ site.data.profile.primary_name }} - {{ site.data.profile.positions[0].name }} at {{ site.data.profile.positions[1].name }}">
+    <meta name="twitter:image" content="{{ site.url }}/{{ site.data.profile.portrait_url }}">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA==" crossorigin="anonymous" />

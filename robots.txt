@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ziyitsang.github.io/sitemap.xml
