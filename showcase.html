@@ -1,11 +1,14 @@
 ---
 layout: default
-title : Showcase
+title : "Showcase - ZENG Ziyi | AI Projects & Demos"
 navbar_title: Showcase
+description: "Interactive showcase of ZENG Ziyi's AI projects, demonstrations, and technical work in Medical Multimodal Large Language Models and EEG analysis."
 container_class: container-xl
 ---
 
 {% assign cards_by_group = site.showcase | sort: "date" | reverse | where: "show", true | group_by_exp: "item", "item.group" %}
+
+{% include breadcrumb.html %}
 
 {% for group in cards_by_group %}
 <h1>{{ group.name }}</h1>

@@ -1,0 +1,115 @@
+/* Performance Optimizations for SEO */
+
+/* Enable browser caching for static assets */
+/* This should be configured in server settings, but CSS can help with some optimizations */
+
+/* Critical CSS inlining hint - these styles should be inlined in HTML head */
+.critical-above-fold {
+    /* Styles for above-the-fold content */
+}
+
+/* Image optimization */
+img {
+    /* Enable lazy loading for images that support it */
+    loading: lazy;
+    
+    /* Improve image rendering performance */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    
+    /* Prevent layout shift */
+    width: 100%;
+    height: auto;
+}
+
+/* Font loading optimization */
+@font-face {
+    font-family: 'Lato';
+    font-display: swap; /* Prevents blocking text rendering */
+    src: url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    font-display: swap;
+    src: url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+}
+
+@font-face {
+    font-family: 'Source Code Pro';
+    font-display: swap;
+    src: url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+}
+
+/* Reduce paint on scroll */
+.card, .publication-item {
+    will-change: transform;
+    contain: layout style paint;
+}
+
+/* Optimize animations */
+.card:hover {
+    transform: translateY(-2px);
+    transition: transform 0.3s ease;
+}
+
+/* Preload critical resources hint */
+/* These should be added to HTML head as <link rel="preload"> */
+/*
+<link rel="preload" href="/assets/css/global.css" as="style">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" as="style">
+<link rel="preload" href="{{ site.data.profile.portrait_url }}" as="image">
+*/
+
+/* Minimize reflows */
+.profile-card, .publication-card, .project-card {
+    overflow: hidden; /* Prevents content from causing reflows */
+}
+
+/* Optimize for mobile */
+@media (max-width: 768px) {
+    /* Reduce resource usage on mobile */
+    .hero-section {
+        background-attachment: scroll; /* Disable parallax on mobile */
+    }
+    
+    /* Optimize images for mobile */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* Print optimizations */
+@media print {
+    /* Optimize for printing */
+    .navbar, .footer, .sidebar {
+        display: none;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+    
+    a {
+        text-decoration: none;
+        color: #000;
+    }
+    
+    .page-break {
+        page-break-before: always;
+    }
+}
+
+/* Reduce JavaScript execution time */
+.no-js-animation * {
+    animation: none !important;
+    transition: none !important;
+}
+
+/* Content visibility for long pages */
+main {
+    content-visibility: auto;
+    contain-intrinsic-size: 1000px;
+}

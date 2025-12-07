@@ -1,12 +1,15 @@
 ---
 layout: default
-title : Publications
+title : "Publications - ZENG Ziyi | Medical MLLM Research | EEG Analysis"
 navbar_title: Publications
+description: "Academic publications by ZENG Ziyi on Medical Multimodal Large Language Models, EEG analysis, forensic medicine, and AI research. Published in Frontiers in Psychiatry, IEEE Sensors, and more."
 body_attr: >-
   data-spy="scroll" data-target="#navbar-year" data-offset="100"
 ---
 
 {% assign pubs_by_year = site.publications | sort: "date" | reverse | group_by_exp: "item", "item.date | date: '%Y'" %}
+
+{% include breadcrumb.html %}
 
 <div class="row">
     <div class="col-12 col-lg-10">

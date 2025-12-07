@@ -1,3 +1,32 @@
+# Enhanced robots.txt for better SEO
+# Allow all web crawlers to access the site
 User-agent: *
 Allow: /
+
+# Block common non-content directories
+User-agent: *
+Disallow: /assets/js/
+Disallow: /_layouts/
+Disallow: /_includes/
+Disallow: /_data/
+Disallow: /_news/
+Disallow: /_showcase/
+Disallow: /_publications/
+Disallow: /*.md$
+Disallow: /Gemfile
+Disallow: /Gemfile.lock
+Disallow: /LICENSE
+Disallow: /README.md
+Disallow: /404.html
+
+# Allow specific important assets
+User-agent: *
+Allow: /assets/css/
+Allow: /assets/images/
+Allow: /assets/cv/
+
+# Sitemap location
 Sitemap: https://ziyitsang.github.io/sitemap.xml
+
+# Crawl delay (optional, adjust as needed)
+# Crawl-delay: 1

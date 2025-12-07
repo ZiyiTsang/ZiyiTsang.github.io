@@ -1,9 +1,43 @@
 {% assign item = include.item %}
+<!-- Structured Data for Publication -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "name": "{{ item.title | escape }}",
+  "author": [
+    {% for author in item.authors %}
+    {
+      "@type": "Person",
+      "name": "{{ author }}"
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
+  "datePublished": "{{ item.date | date: '%Y-%m-%d' }}",
+  "isPartOf": {
+    "@type": "PublicationIssue",
+    "name": "{{ item.pub }}",
+    "datePublished": "{{ item.pub_date }}"
+  },
+  "abstract": "{{ item.abstract | escape }}",
+  {% if item.cover %}
+  "image": "{{ site.url }}/{{ item.cover }}",
+  {% endif %}
+  "url": "{{ site.url }}{{ item.url }}",
+  {% for link in item.links %}
+  {% if link[0] == "Paper" %}
+  "sameAs": "{{ link[1] }}",
+  {% endif %}
+  {% endfor %}
+  "keywords": "EEG, Medical Multimodal Large Language Models, Neuroscience"
+}
+</script>
+
 <div class="d-none d-md-block">
     <div class="row no-gutters {% unless include.hide_bottom_border %}border-bottom{% endunless %} border-gray">
         <div class="col-md-3 col-xl-2 mb-md-0 p-md-3">
             {%- if item.cover -%}
-            <img data-src="{{ item.cover | relative_url }}" alt="{{ item.title }}" class="lazy w-100 rounded-sm" src="{{ 'assets/images/empty_300x200.png' | relative_url }}">
+            <img data-src="{{ item.cover | relative_url }}" alt="{{ item.title }} - Cover image" class="lazy w-100 rounded-sm" src="{{ 'assets/images/empty_300x200.png' | relative_url }}">
             {%- else -%}
             <svg class="bubble-visual-hash lazy w-100 rounded-sm" data-bubble-visual-hash="{{ item.id }}" viewBox="0 0 300 200"></svg>
             {%- endif -%}
