@@ -1,0 +1,126 @@
+name: IndexNow 通知
+
+# 触发条件
+on:
+  # 推送到main分支时触发
+  push:
+    branches: [ main, master ]
+    paths:
+      - '**.md'
+      - '**.html'
+      - '**.yml'
+      - '**.yaml'
+      - '_posts/**'
+      - '_publications/**'
+      - '_news/**'
+      - '_showcase/**'
+      - 'assets/images/**'
+      - 'sitemap.xml'
+      - 'robots.txt'
+  
+  # 允许手动触发
+  workflow_dispatch:
+    inputs:
+      notify_all:
+        description: '通知所有页面（而不仅仅是更改的页面）'
+        required: false
+        default: 'false'
+        type: boolean
+  
+  # 定期检查（每周一上午8点）
+  schedule:
+    - cron: '0 8 * * 1'  # 每周一上午8点UTC
+
+# 权限
+permissions:
+  contents: read
+
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # 获取完整历史记录以便比较更改
+        
+    - name: 设置Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: 安装依赖
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+        
+    - name: 检查更改的文件
+      id: changed_files
+      run: |
+        if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ github.event.inputs.notify_all }}" = "true" ]; then
+          echo "force_notify=true" >> $GITHUB_OUTPUT
+          echo "手动触发：强制通知所有页面"
+        elif [ "${{ github.event_name }}" = "schedule" ]; then
+          echo "force_notify=true" >> $GITHUB_OUTPUT
+          echo "定期触发：强制通知所有页面"
+        else
+          # 检查是否有内容文件更改
+          CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
+          echo "更改的文件："
+          echo "$CHANGED"
+          
+          # 检查是否有相关内容文件更改
+          if echo "$CHANGED" | grep -E "\.(md|html|yml|yaml)$|_posts/|_publications/|_news/|_showcase/|assets/images/|sitemap\.xml|robots\.txt"; then
+            echo "force_notify=true" >> $GITHUB_OUTPUT
+            echo "检测到内容文件更改，将通知IndexNow"
+          else
+            echo "force_notify=false" >> $GITHUB_OUTPUT
+            echo "没有检测到内容文件更改，跳过IndexNow通知"
+          fi
+        fi
+        
+    - name: 创建API密钥验证文件
+      if: steps.changed_files.outputs.force_notify == 'true'
+      run: |
+        echo "${{ secrets.INDEXNOW_API_KEY }}" > ${{ secrets.INDEXNOW_API_KEY }}.txt
+        echo "已创建API密钥验证文件：${{ secrets.INDEXNOW_API_KEY }}.txt"
+        
+    - name: 运行IndexNow通知
+      if: steps.changed_files.outputs.force_notify == 'true'
+      env:
+        INDEXNOW_API_KEY: ${{ secrets.INDEXNOW_API_KEY }}
+      run: |
+        echo "开始执行IndexNow通知..."
+        python .github/scripts/indexnow.py https://ziyitsang.github.io sitemap.xml
+        
+    - name: 上传结果文件
+      if: steps.changed_files.outputs.force_notify == 'true'
+      uses: actions/upload-artifact@v3
+      with:
+        name: indexnow-results
+        path: indexnow_result.json
+        retention-days: 30
+        
+    - name: 发送通知结果
+      if: steps.changed_files.outputs.force_notify == 'true'
+      run: |
+        if [ -f "indexnow_result.json" ]; then
+          echo "=== IndexNow通知结果摘要 ==="
+          python -c "
+          import json
+          with open('indexnow_result.json', 'r') as f:
+              result = json.load(f)
+          print(f'总URL数: {result[\"total_urls\"]}')
+          print(f'总批次数: {result[\"total_batches\"]}')
+          print(f'成功批次: {result[\"successful_batches\"]}')
+          if result['successful_batches'] < result['total_batches']:
+              print('⚠️ 部分批次提交失败')
+              exit(1)
+          else:
+              print('✅ 所有批次提交成功')
+          "
+        else
+          echo "❌ 未找到结果文件"
+          exit 1
+        fi
