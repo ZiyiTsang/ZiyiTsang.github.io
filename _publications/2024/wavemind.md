@@ -1,6 +1,6 @@
 ---
 title:          "WaveMind: Towards a Generalist EEG Chat Model Aligned to Textual and Visual Modalities"
-date:           2024-01-01 00:01:00 +0800
+date:           2024-12-01 00:05:00 +0800
 selected:       true
 pub:            "Preprint"
 pub_date:       "2024"

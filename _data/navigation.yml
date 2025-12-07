@@ -7,5 +7,7 @@ pages:
   url: /publications
 - name: Projects, Experience & Awards
   url: /projects_experience
+- name: More
+  url: /more
 - name: CV
   url: /assets/cv/CV_Ziyi.pdf
