@@ -1,9 +1,9 @@
 ---
 title:          "Specific Endophenotypes in EEG Microstates for Methamphetamine Use Disorder"
-date:           2024-12-01 00:03:00 +0800
+date:           2025-12-01 00:03:00 +0800
 selected:       true
 pub:            "Frontiers in Psychiatry"
-pub_date:       "2024"
+pub_date:       "2025"
 pub_last:       ' <span class="badge badge-pill badge-publication badge-success">Accepted</span>'
 abstract: >-
   This study applied EEG microstate features classification within EEG across frequency bands and tasks to classify methamphetamine use disorder (MUD) versus controls. The main conclusion involves MUD endophenotyping, pinpointing alpha-band microstate A as a key biomarker.
