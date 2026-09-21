@@ -3,8 +3,8 @@ secondary_name: "曾子懿"
 navbar_name: "ZENG Ziyi"
 
 positions:
-- name: "MSc Student in Artificial Intelligence and Robotics (M.A.I.R)"
-- name: "The Chinese University of Hong Kong, Shenzhen (CUHK-SZ)"
+- name: "PhD Student"
+- name: "The Chinese University of Hong Kong, Shenzhen (CUHK-SZ)<br/>Jointly with Shenzhen Loop Area Institute (SLAI)"
   logo: assets/images/badges/CUHK_SZ.jpg  # Logo is optional
 
 
@@ -25,7 +25,7 @@ short_bio: >-
     My current research focuses on Medical <u>M</u>ultimodal <u>L</u>arge <u>L</u>anguage <u>M</u>odels (<i>MLLMs</i>), with particular applications in forensic medicine and biosignal analysis (e.g., ECG/EEG), under the supervision of <a href="https://sds.cuhk.edu.cn/en/teacher/571" target="_blank">Prof. Wang Benyou</a>. During my undergraduate studies, I was honored to be admitted as a visiting student in the Cenbrain Lab at Westlake University, where I worked under the supervision of <a href="https://en.westlake.edu.cn/faculty/mohamad-sawan.html" target="_blank">Prof. Mohamed Sawan</a>. I am also an active contributor to the open-source community, with pull requests to renowned projects such as Areal. My bachelor's thesis was supervised by <a href="https://simkuangoh.github.io/" target="_blank">Dr. Goh Sim Kuan</a>.
   </p>
   <p>
-    <span style="color: red;">I am currently seeking PhD/Intern opportunities.  Feel free to drop me an email.</span>
+    <span style="color: red;">I am currently open to research collaborations and internship opportunities.  Feel free to drop me an email.</span>
   </p>
 
 portrait_url: assets/images/photos/thisisme.jpg
@@ -33,6 +33,11 @@ portrait_url: assets/images/photos/thisisme.jpg
 #   Personal photo (this caption is optional, comment it out to disable).
 
 education:
+- name: Chinese University of Hong Kong, Shenzhen (CUHK-SZ)
+  logo: assets/images/badges/CUHK_SZ.jpg
+  position: >-
+    PhD, Jointly with Shenzhen Loop Area Institute (SLAI)
+  date: 2026 - 2030
 - name: Chinese University of Hong Kong, Shenzhen (CUHK-SZ)
   logo: assets/images/badges/CUHK_SZ.jpg
   position: >-

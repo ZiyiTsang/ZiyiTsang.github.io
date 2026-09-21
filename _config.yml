@@ -14,7 +14,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: "ZENG Ziyi - Academic Homepage"
-description: "ZENG Ziyi - MSc Student in Artificial Intelligence and Robotics at CUHK-SZ. Research focus on Medical Multimodal Large Language Models (MLLMs), forensic medicine and biosignal analysis."
+description: "ZENG Ziyi - PhD Student at CUHK-SZ, jointly with Shenzhen Loop Area Institute (SLAI). Research focus on Medical Multimodal Large Language Models (MLLMs), forensic medicine and biosignal analysis."
 url: "https://ziyitsang.github.io" # the base hostname & protocol for your site
 baseurl: "" # the subpath of your site, e.g. /blog
 
