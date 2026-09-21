@@ -122,21 +122,4 @@ jobs:
 
     - name: 发送通知结果
       if: steps.changed_files.outputs.force_notify == 'true' && steps.key_check.outputs.has_key == 'true'
-      run: |
-        if [ -f "indexnow_result.json" ]; then
-          echo "=== IndexNow通知结果摘要 ==="
-          python -c "
-          import json
-          with open('indexnow_result.json', 'r') as f:
-              result = json.load(f)
-          print(f'总URL数: {result[\"total_urls\"]}')
-          print(f'总批次数: {result[\"total_batches\"]}')
-          print(f'成功批次: {result[\"successful_batches\"]}')
-          if result['successful_batches'] < result['total_batches']:
-              print('⚠️ 部分批次提交失败（常见原因：IndexNow 尚未完成密钥校验，返回 403）')
-          else:
-              print('✅ 所有批次提交成功')
-          "
-        else
-          echo "⚠️ 未找到结果文件，跳过摘要"
-        fi
+      run: python .github/scripts/indexnow_summary.py
