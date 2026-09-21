@@ -41,7 +41,7 @@ jobs:
     
     steps:
     - name: 检出代码
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0  # 获取完整历史记录以便比较更改
         
@@ -80,31 +80,42 @@ jobs:
           fi
         fi
         
+    - name: 检查IndexNow密钥
+      id: key_check
+      run: |
+        if [ -z "${{ secrets.INDEXNOW_API_KEY }}" ]; then
+          echo "has_key=false" >> $GITHUB_OUTPUT
+          echo "::warning title=IndexNow 已跳过::未配置 INDEXNOW_API_KEY 密钥，已跳过本次通知。"
+        else
+          echo "has_key=true" >> $GITHUB_OUTPUT
+        fi
+
     - name: 创建API密钥验证文件
-      if: steps.changed_files.outputs.force_notify == 'true'
+      if: steps.changed_files.outputs.force_notify == 'true' && steps.key_check.outputs.has_key == 'true'
       run: |
         echo "${{ secrets.INDEXNOW_API_KEY }}" > ${{ secrets.INDEXNOW_API_KEY }}.txt
         echo "已创建API密钥验证文件：${{ secrets.INDEXNOW_API_KEY }}.txt"
-        
+
     - name: 运行IndexNow通知
-      if: steps.changed_files.outputs.force_notify == 'true'
+      if: steps.changed_files.outputs.force_notify == 'true' && steps.key_check.outputs.has_key == 'true'
+      continue-on-error: true
       env:
         INDEXNOW_API_KEY: ${{ secrets.INDEXNOW_API_KEY }}
       run: |
         echo "开始执行IndexNow通知..."
         python .github/scripts/indexnow.py https://ziyitsang.github.io sitemap.xml
-        
+
     - name: 上传结果文件
-      if: steps.changed_files.outputs.force_notify == 'true'
+      if: steps.changed_files.outputs.force_notify == 'true' && steps.key_check.outputs.has_key == 'true'
       uses: actions/upload-artifact@v4
       with:
         name: indexnow-results
         path: indexnow_result.json
         retention-days: 30
         if-no-files-found: ignore
-        
+
     - name: 发送通知结果
-      if: steps.changed_files.outputs.force_notify == 'true'
+      if: steps.changed_files.outputs.force_notify == 'true' && steps.key_check.outputs.has_key == 'true'
       run: |
         if [ -f "indexnow_result.json" ]; then
           echo "=== IndexNow通知结果摘要 ==="
@@ -116,12 +127,10 @@ jobs:
           print(f'总批次数: {result[\"total_batches\"]}')
           print(f'成功批次: {result[\"successful_batches\"]}')
           if result['successful_batches'] < result['total_batches']:
-              print('⚠️ 部分批次提交失败')
-              exit(1)
+              print('⚠️ 部分批次提交失败（常见原因：IndexNow 尚未完成密钥校验，返回 403）')
           else:
               print('✅ 所有批次提交成功')
           "
         else
-          echo "❌ 未找到结果文件"
-          exit 1
+          echo "⚠️ 未找到结果文件，跳过摘要"
         fi
