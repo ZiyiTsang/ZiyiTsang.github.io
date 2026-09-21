@@ -40,12 +40,12 @@ IndexNow通知会在以下情况下自动触发：
 2. 点击 `Settings` > `Secrets and variables` > `Actions`
 3. 点击 `New repository secret`
 4. 名称: `INDEXNOW_API_KEY`
-5. 值: `5a933d53056640af8bee125d8f287aa5`
+5. 值: `9b818f8814e64eabb16c50d91332e2e8`
 6. 点击 `Add secret`
 
 ### 2. 验证API密钥文件
 
-网站根目录下的 `5a933d53056640af8bee125d8f287aa5.txt` 文件包含您的API密钥，这是IndexNow验证网站所有权所必需的。
+网站根目录下的 `9b818f8814e64eabb16c50d91332e2e8.txt` 文件包含您的API密钥，这是IndexNow验证网站所有权所必需的。
 
 ## 使用方法
 

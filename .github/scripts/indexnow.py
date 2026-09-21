@@ -130,15 +130,16 @@ class IndexNowNotifier:
                     "batch": i//batch_size + 1,
                     "status_code": response.status_code,
                     "response_text": response.text,
-                    "success": response.status_code == 200
+                    # IndexNow 成功时返回 200，或返回 202 表示已接受待处理
+                    "success": response.status_code in (200, 202)
                 }
                 
                 results.append(result)
                 
                 if result["success"]:
-                    print(f"第 {i//batch_size + 1} 批提交成功")
+                    print(f"第 {i//batch_size + 1} 批提交成功 (HTTP {response.status_code})")
                 else:
-                    print(f"第 {i//batch_size + 1} 批提交失败: {response.status_code} - {response.text}")
+                    print(f"第 {i//batch_size + 1} 批提交失败: HTTP {response.status_code} - {response.text}")
                 
                 # 添加延迟以避免请求过于频繁
                 if i + batch_size < len(urls):

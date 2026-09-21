@@ -38,8 +38,8 @@ Host: api.indexnow.org
 
 {
   "host": "ziyitsang.github.io",
-  "key": "5a933d53056640af8bee125d8f287aa5",
-  "keyLocation": "https://ziyitsang.github.io/5a933d53056640af8bee125d8f287aa5.txt",
+  "key": "9b818f8814e64eabb16c50d91332e2e8",
+  "keyLocation": "https://ziyitsang.github.io/9b818f8814e64eabb16c50d91332e2e8.txt",
   "urlList": [
     "https://ziyitsang.github.io/",
     "https://ziyitsang.github.io/publications.html",
@@ -56,8 +56,8 @@ Host: api.indexnow.org
 ```
 正在发送IndexNow通知...
 主机: ziyitsang.github.io
-API密钥: 5a933d53056640af8bee125d8f287aa5
-密钥位置: https://ziyitsang.github.io/5a933d53056640af8bee125d8f287aa5.txt
+API密钥: 9b818f8814e64eabb16c50d91332e2e8
+密钥位置: https://ziyitsang.github.io/9b818f8814e64eabb16c50d91332e2e8.txt
 URL数量: 30
 
 部分URL列表:
@@ -93,7 +93,7 @@ Host: api.indexnow.org
 
 ## 注意事项
 
-1. 确保API密钥验证文件 `5a933d53056640af8bee125d8f287aa5.txt` 存在于网站根目录
+1. 确保API密钥验证文件 `9b818f8814e64eabb16c50d91332e2e8.txt` 存在于网站根目录
 2. 脚本需要安装 `requests` 库：`pip install requests`
 3. 成功的通知会返回HTTP 200状态码
 4. IndexNow会自动将您的URL提交给参与的搜索引擎

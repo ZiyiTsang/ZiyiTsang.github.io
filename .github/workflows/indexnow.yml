@@ -83,24 +83,30 @@ jobs:
     - name: 检查IndexNow密钥
       id: key_check
       run: |
-        if [ -z "${{ secrets.INDEXNOW_API_KEY }}" ]; then
+        # 优先使用仓库 Secret；未配置时回退到仓库内已验证的密钥文件
+        KEY="${{ secrets.INDEXNOW_API_KEY }}"
+        if [ -z "$KEY" ]; then
+          KEY="9b818f8814e64eabb16c50d91332e2e8"
+          echo "::notice title=IndexNow::未配置 Secret，使用仓库内置密钥。"
+        fi
+        if [ -z "$KEY" ]; then
           echo "has_key=false" >> $GITHUB_OUTPUT
-          echo "::warning title=IndexNow 已跳过::未配置 INDEXNOW_API_KEY 密钥，已跳过本次通知。"
+          echo "::warning title=IndexNow 已跳过::未找到可用密钥，已跳过本次通知。"
         else
           echo "has_key=true" >> $GITHUB_OUTPUT
+          echo "api_key=$KEY" >> $GITHUB_OUTPUT
         fi
 
     - name: 创建API密钥验证文件
       if: steps.changed_files.outputs.force_notify == 'true' && steps.key_check.outputs.has_key == 'true'
       run: |
-        echo "${{ secrets.INDEXNOW_API_KEY }}" > ${{ secrets.INDEXNOW_API_KEY }}.txt
-        echo "已创建API密钥验证文件：${{ secrets.INDEXNOW_API_KEY }}.txt"
+        echo "${{ steps.key_check.outputs.api_key }}" > ${{ steps.key_check.outputs.api_key }}.txt
+        echo "已创建API密钥验证文件：${{ steps.key_check.outputs.api_key }}.txt"
 
     - name: 运行IndexNow通知
       if: steps.changed_files.outputs.force_notify == 'true' && steps.key_check.outputs.has_key == 'true'
-      continue-on-error: true
       env:
-        INDEXNOW_API_KEY: ${{ secrets.INDEXNOW_API_KEY }}
+        INDEXNOW_API_KEY: ${{ steps.key_check.outputs.api_key }}
       run: |
         echo "开始执行IndexNow通知..."
         python .github/scripts/indexnow.py https://ziyitsang.github.io sitemap.xml

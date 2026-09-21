@@ -57,7 +57,7 @@ def notify_indexnow(urls):
     """发送IndexNow通知"""
     
     # API配置
-    api_key = "5a933d53056640af8bee125d8f287aa5"
+    api_key = "9b818f8814e64eabb16c50d91332e2e8"
     host = "ziyitsang.github.io"
     api_url = "https://api.indexnow.org/indexnow"
     
