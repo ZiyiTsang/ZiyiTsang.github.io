@@ -46,9 +46,9 @@ jobs:
         fetch-depth: 0  # 获取完整历史记录以便比较更改
         
     - name: 设置Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        python-version: '3.12'
         
     - name: 安装依赖
       run: |
@@ -96,11 +96,12 @@ jobs:
         
     - name: 上传结果文件
       if: steps.changed_files.outputs.force_notify == 'true'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: indexnow-results
         path: indexnow_result.json
         retention-days: 30
+        if-no-files-found: ignore
         
     - name: 发送通知结果
       if: steps.changed_files.outputs.force_notify == 'true'
